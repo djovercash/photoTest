@@ -7,7 +7,7 @@
     "test": "mocha test -u bdd -R spec",
     "pretest": "echo 'about to run the test...'",
     "posttest": "echo 'the test has been run!'",
-    "start": "node server.js",
+    "start": "open index.html",
     "start:dev": "node server.js 4000",
     "lint": "jshint *.js **/*.js"
   },
