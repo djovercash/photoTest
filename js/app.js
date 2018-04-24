@@ -11,6 +11,7 @@ const App = (function() {
 
     static fetchImages(nextPage) {
       Adapter.getImages(nextPage).then(data => {
+        console.log(data)
         let images = data.records
         images.forEach(image => {
           let newImage = new Image(image)
@@ -42,8 +43,13 @@ const App = (function() {
       specificImageContainer.innerHTML = ''
       Adapter.getSpecificImage(id).then(data => {
         let specificImage = new Image(data)
-        specificImageContainer.append(specificImage.renderImage())
+        specificImageContainer.append(specificImage.renderSpecificImage())
       })
+    }
+
+    static removeImage(event) {
+      let specificImageContainer = document.getElementById('desktopSpecificImage')
+      specificImageContainer.innerHTML = ''
     }
   }
 })();

@@ -5,7 +5,6 @@ header {
   align-items: center;
 }
 
-
 #desktopDisplay {
   display: flex;
   flex-wrap: wrap;
@@ -23,6 +22,26 @@ header {
 }
 
 .imageDiv img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#desktopSpecificImage {
+  position: absolute;
+  left: 25%;
+  top: 0;
+}
+
+#specificImageDiv {
+  display: flex;
+  background-color: rgb(0, 0, 255);
+  width: 50vw;
+  height: 50vw;
+  align-items: center;
+  justify-content: center;
+}
+
+#specificImageDiv img {
   max-width: 100%;
   max-height: 100%;
 }
