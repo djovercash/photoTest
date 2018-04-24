@@ -3,32 +3,37 @@ const App = (function() {
     static init() {
       App.fetchImages(1)
       let nextImagesButton = document.getElementById("nextImagesButton")
+      let prevImagesButton = document.getElementById('prevImagesButton')
       nextImagesButton.addEventListener("click", function(event) {
         event.preventDefault()
-        App.displayImages2()
+        App.displayCurrentImages()
+      })
+      prevImagesButton.addEventListener("click", function(event) {
+        event.preventDefault()
+        App.displayPastImages()
       })
     }
 
     static fetchImages(nextPage) {
       Adapter.getImages(nextPage).then(data => {
-        console.log(data)
         let images = data.records
         images.forEach(image => {
           let newImage = new Image(image)
         })
-        App.displayImages2()
+        App.displayCurrentImages()
       })
     }
 
-    static displayImages2() {
+    static displayCurrentImages() {
       let imageContainer = document.getElementById("desktopDisplay")
       imageContainer.innerHTML = ''
-      let images = Image.showAll().slice(0, 10)
+      let images = Image.showNewImages().slice(0, 10)
+      Image.pastImages(images)
       if (images.length >= 10) {
         images.forEach(image => {
           imageContainer.append(image.renderImage())
         })
-        Image.removeSet()
+        Image.removeNewImagesSet()
       } else {
         let nextImagesButton = document.getElementById("nextImagesButton")
         let nextPage = 1 + parseInt(nextImagesButton.getAttribute('data-page'))
@@ -37,12 +42,22 @@ const App = (function() {
       }
     }
 
+    static displayPastImages() {
+      let pastImages = Image.showPastImages()
+      if (pastImages.length >= 10) {
+        let slicedPastImages = pastImages.splice(pastImages.length - 20, 20)
+        Image.returnPastImages(slicedPastImages)
+      } 
+      App.displayCurrentImages()
+    }
+
     static imageDetails(event, id) {
       event.preventDefault()
       let specificImageContainer = document.getElementById('desktopSpecificImage')
       specificImageContainer.innerHTML = ''
       Adapter.getSpecificImage(id).then(data => {
         let specificImage = new Image(data)
+        Image.removeDuplicateImage(specificImage)
         specificImageContainer.append(specificImage.renderSpecificImage())
       })
     }

@@ -1,5 +1,6 @@
 const Image = (function() {
   let images = []
+  let pastImages = []
 
   return class Image {
     constructor(json) {
@@ -8,12 +9,29 @@ const Image = (function() {
       images.push(this)
     }
 
-    static showAll() {
+    static showNewImages() {
       return images
     }
 
-    static removeSet() {
+    static removeNewImagesSet() {
       images.splice(0, 10)
+    }
+
+    static removeDuplicateImage(selectedImage) {
+      let filteredImages = images.filter(image => image.id !== selectedImage.id)
+      images = [...filteredImages]
+    }
+
+    static pastImages(images) {
+      images.forEach(image => pastImages.push(image))
+    }
+
+    static showPastImages() {
+      return pastImages
+    }
+
+    static returnPastImages(returnedImages) {
+      images = [...returnedImages, ...images]
     }
 
     renderImage() {
