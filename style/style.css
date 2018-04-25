@@ -112,6 +112,18 @@ button {
   width: 90%;
 }
 
+#specificImageDiv h1 {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  top: 0;
+  right: 0;
+  margin: 0px;
+}
+
+#specificImageDiv h1:hover {
+  color: rgb(180, 180, 180);
+}
+
 @media only screen and (max-width: 480px) {
   #specificImageDiv h4 {
     font-size: 2vw;

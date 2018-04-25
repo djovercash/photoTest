@@ -49,11 +49,14 @@ const Image = (function() {
       let div = document.createElement('div')
       let img = document.createElement('img')
       let h4 = document.createElement('h4')
+      let h1 = document.createElement('h1')
       div.setAttribute("id", "specificImageDiv")
       div.setAttribute("onclick", `App.removeImage(event)`)
       img.setAttribute("id", this.id)
       img.setAttribute("src", this.image_url)
       h4.innerText = `Reference Number: ${this.id}`
+      h1.innerText = "X"
+      div.append(h1)
       div.append(img)
       div.append(h4)
       return div
