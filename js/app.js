@@ -7,10 +7,12 @@ const App = (function() {
       nextImagesButton.addEventListener("click", function(event) {
         event.preventDefault()
         App.displayCurrentImages()
+        App.newPage()
       })
       prevImagesButton.addEventListener("click", function(event) {
         event.preventDefault()
         App.displayPastImages()
+        App.pastPage()
       })
     }
 
@@ -44,15 +46,29 @@ const App = (function() {
 
     static displayPastImages() {
       let pastImages = Image.showPastImages()
-      if (pastImages.length >= 10) {
+      if (pastImages.length >=  10) {
         let slicedPastImages = pastImages.splice(pastImages.length - 20, 20)
         Image.returnPastImages(slicedPastImages)
-      } 
+      }
       App.displayCurrentImages()
+    }
+
+    static newPage() {
+      let displayNumber = document.getElementById("displayNumber")
+      displayNumber.innerText = parseInt(displayNumber.innerText) + 1
+    }
+
+    static pastPage() {
+      let displayNumber = document.getElementById("displayNumber")
+      if (displayNumber.innerText > 1) {
+        displayNumber.innerText = parseInt(displayNumber.innerText) - 1
+      }
     }
 
     static imageDetails(event, id) {
       event.preventDefault()
+      let covering = document.getElementById("displayCovering")
+      covering.style.display = 'block'
       let specificImageContainer = document.getElementById('desktopSpecificImage')
       specificImageContainer.innerHTML = ''
       Adapter.getSpecificImage(id).then(data => {
@@ -65,6 +81,8 @@ const App = (function() {
     static removeImage(event) {
       let specificImageContainer = document.getElementById('desktopSpecificImage')
       specificImageContainer.innerHTML = ''
+      let covering = document.getElementById("displayCovering")
+      covering.style.display = 'none'
     }
   }
 })();
